@@ -11,7 +11,7 @@ const PostBox = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input className="form-control rounded-5" placeholder="Whats on your mind...!" {...register("exampleRequired", { required: true })} />
                 {errors.exampleRequired && <span>This field is required</span>}
-                <label for="img" className='my-2'>Upload a image</label>
+                <label for="img" className='my-2 ms-1'>Upload a image</label>
                 <br />
                 <input type="file" id="img" name="img" accept="image/*" />
                 <input type="submit" />
