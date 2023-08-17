@@ -25,10 +25,14 @@ const Navbar = () => {
                             <NavLink className={({ isActive }) => (isActive ? `nav-link ${styles.isActive}` : `nav-link ${styles.inActive}`)} to='/message'>Message</NavLink>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div>
+                        {/* {
+                                isLoggedIn.emailVerified === true ? <button onClick={SignOut} className={`btn ${styles.outBtn}`} >SignOut</button> : <NavLink to="/signin" className={`btn ${styles.inBtn}`} >SignIn</NavLink>
+                            } */}
+
+                        <NavLink to="/signin" className={`btn btn-secondary ${styles.inBtn}`} >SignIn</NavLink>
+                    </div>
+
                 </div>
             </div>
         </nav>

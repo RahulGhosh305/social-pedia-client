@@ -80,7 +80,7 @@ const RightPart = () => {
                         </div>
                     </li>
                 </ul>
-                <span className={`text-center ${styles.pointer}`}>See more...</span>
+                <span className={`text-center py-2 ${styles.pointer}`}>See more...</span>
             </div>
         </div>
     );
