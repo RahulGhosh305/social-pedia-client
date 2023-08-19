@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import Navbar from '../../component/Navbar/navbar';
 import styles from './signIn.module.css'
 import { useNavigate } from 'react-router-dom';
-
 import signinImg from '../../assets/signinImg.png'
-
 import { useLoginMutation } from '../../redux/services/auth/authApi.js';
-import useAuth from '../../hooks/useAuth';
+
+
+import { getAuth } from "firebase/auth";
+import app from '../../firebase/firebase.init';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
 const SignIn = () => {
+    const auth = getAuth(app)
+    const provider = new GoogleAuthProvider();
+
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate()
@@ -31,6 +37,23 @@ const SignIn = () => {
     const handleSignUp = () => {
         navigate('/signup')
     }
+
+
+    const handleGoogleSignIn = () => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                localStorage.setItem('googletoken', user.accessToken);
+                if (user.accessToken) {
+                    navigate('/')
+                }
+
+            }).catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <>
             <Navbar />
@@ -71,8 +94,7 @@ const SignIn = () => {
                             <div className={styles.googleBtnWrapper}>
                                 <h4> <u> Or Sign In with </u> </h4>
                                 <div className="d-flex justify-content-center">
-                                    {/* <button onClick={signInWithGoogle} className={`btn btn-sm ${styles.googleBtn}`}>Google</button> */}
-                                    <button className={`btn btn-sm btn-secondary ${styles.googleBtn}`}>Google</button>
+                                    <button onClick={handleGoogleSignIn} className={`btn btn-sm btn-secondary ${styles.googleBtn}`}>Google</button>
                                 </div>
                             </div>
                         </div>

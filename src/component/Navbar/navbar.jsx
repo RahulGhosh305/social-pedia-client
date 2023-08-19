@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo.png'
-import { NavLink, Navigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styles from './Navbar.module.css'
 import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
     const [token, setToken] = useState(true)
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getToken = useAuth()
         setToken(getToken)
     }, [token])
 
+
     const SignOut = () => {
         localStorage.clear();
         setToken(false)
-        Navigate('/signin')
+        navigate('/signin')
     }
 
     return (

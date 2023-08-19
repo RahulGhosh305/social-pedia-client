@@ -74,7 +74,7 @@ const PostDetails = () => {
                         </div>
                         <div className='ms-3'>
                             <h3>{post?.data?.user?.name}</h3>
-                            <p className={`card-text fw-bold `}>6:30 pm</p>
+                            {/* <p className={`card-text fw-bold `}>6:30 pm</p> */}
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ const PostDetails = () => {
                         <div>
                             <div className="card mb-3">
 
-                                <img src={img3} className="card-img-top" alt="Posted Image" />
+                                <img src={post?.data?.postPhoto} className="card-img-top" alt="Posted Image" />
 
                                 <div className="card-body">
                                     <p className="card-text">{post?.data?.postText}</p>
