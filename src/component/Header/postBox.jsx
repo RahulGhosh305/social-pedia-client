@@ -12,7 +12,7 @@ const PostBox = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('http://localhost:5000/api/v1/auth/protected-user', {
+        fetch('https://social-pedia-server-780h.onrender.com/api/v1/auth/protected-user', {
             method: 'POST',
             body: JSON.stringify({ token: token }),
             headers: {
@@ -66,7 +66,7 @@ const PostBox = () => {
             }
         }
         console.log(postData)
-        await fetch("http://localhost:5000/api/v1/social/post", {
+        await fetch("https://social-pedia-server-780h.onrender.com/api/v1/social/post", {
             method: 'POST',
             body: JSON.stringify(postData),
             headers: {

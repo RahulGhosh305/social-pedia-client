@@ -19,7 +19,7 @@ const PostDetails = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('http://localhost:5000/api/v1/auth/protected-user', {
+        fetch('https://social-pedia-server-780h.onrender.com/api/v1/auth/protected-user', {
             method: 'POST',
             body: JSON.stringify({ token: token }),
             headers: {
@@ -48,7 +48,7 @@ const PostDetails = () => {
             }
         }
         const id = post?.data?._id
-        fetch(`http://localhost:5000/api/v1/social/add-comment/${id}`, {
+        fetch(`https://social-pedia-server-780h.onrender.com/api/v1/social/add-comment/${id}`, {
             method: 'POST',
             body: JSON.stringify(commentbody),
             headers: {

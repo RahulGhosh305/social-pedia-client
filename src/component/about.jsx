@@ -13,7 +13,7 @@ const About = () => {
     useEffect(() => {
         const token = localStorage.getItem('token');
 
-        fetch('http://localhost:5000/api/v1/auth/protected-user', {
+        fetch('https://social-pedia-server-780h.onrender.com/api/v1/auth/protected-user', {
             method: 'POST',
             body: JSON.stringify({ token: token }),
             headers: {
@@ -42,7 +42,7 @@ const About = () => {
             university: university
         }
         const id = userInfo.id
-        fetch(`http://localhost:5000/api/v1/auth/update-profile/${id}`, {
+        fetch(`https://social-pedia-server-780h.onrender.com/api/v1/auth/update-profile/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(updates),
             headers: {
