@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../component/Navbar/navbar';
-import { useForm } from "react-hook-form";
 import styles from './signIn.module.css'
 import { useNavigate } from 'react-router-dom';
 
 import signinImg from '../../assets/signinImg.png'
-// import useAuth from '../UseAuthHook/useAuth';
 
+import { useLoginMutation } from '../../redux/services/auth/authApi.js';
+import useAuth from '../../hooks/useAuth';
 
 const SignIn = () => {
-    // const { signInWithGoogle, signInEmailAndPassword, sentErrorMessage } = useAuth()
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log(data)
-        // signInEmailAndPassword(data.email, data.password)
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate()
+
+    const [login, { isLoading, data }] = useLoginMutation();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!isLoading) {
+            const response = await login({ email, password });
+            const token = response?.data?.data
+            localStorage.setItem('token', token);
+        }
+    };
+
+    if (data?.status === "loggedIn") {
+        navigate('/')
     }
 
-    const navigate = useNavigate()
     const handleSignUp = () => {
         navigate('/signup')
     }
-
     return (
         <>
             <Navbar />
@@ -31,24 +41,31 @@ const SignIn = () => {
                             <div className={styles.signInText}>
                                 <h4>Sign-In</h4>
                             </div>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <div className="d-flex align-items-center mx-1">
-                                    <input className="form-control mb-3 border-0 border-bottom" placeholder="E-Mail" {...register("email", { required: true })} />
-                                    {errors.email && <span className="text-danger">*Email field is required</span>}
+
+                            <form onSubmit={handleSubmit}>
+                                <input
+                                    type="email"
+                                    placeholder="Email"
+                                    className='form-control'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <br />
+                                <input
+                                    type="password"
+                                    placeholder="Password"
+                                    className='form-control'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <br />
+                                <div className='d-flex justify-content-center'>
+                                    <button type="submit" className='btn btn-secondary' disabled={isLoading}>
+                                        Login
+                                    </button>
                                 </div>
-
-                                <div className="d-flex align-items-center mx-1">
-                                    <input className="form-control mb-3 border-0 border-bottom" placeholder="Password" {...register("password", { required: true })} />
-                                    {errors.password && <span className="text-danger">*Email field is required</span>}
-                                </div>
-
-                                <div className="d-flex justify-content-center">
-                                    <input type="submit" className={`btn btn-sm btn-secondary ${styles.signInBtn}`} />
-                                </div>
-
-                                {/* <div className="mt-2 text-center text-danger">{sentErrorMessage()}</div> */}
-
                             </form>
+
                             <p onClick={() => handleSignUp()} className={styles.notRegistered}>*Not Register! <u className="text-primary">Sign-Up</u> </p>
 
                             <div className={styles.googleBtnWrapper}>

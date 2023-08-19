@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/logo.png'
-import { NavLink } from 'react-router-dom';
+import { NavLink, Navigate } from 'react-router-dom';
 import styles from './Navbar.module.css'
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
+    const [token, setToken] = useState(true)
+
+    useEffect(() => {
+        const getToken = useAuth()
+        setToken(getToken)
+    }, [token])
+
+    const SignOut = () => {
+        localStorage.clear();
+        setToken(false)
+        Navigate('/signin')
+    }
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container">
@@ -26,11 +40,10 @@ const Navbar = () => {
                         </li>
                     </ul>
                     <div>
-                        {/* {
-                                isLoggedIn.emailVerified === true ? <button onClick={SignOut} className={`btn ${styles.outBtn}`} >SignOut</button> : <NavLink to="/signin" className={`btn ${styles.inBtn}`} >SignIn</NavLink>
-                            } */}
+                        {
+                            token === true ? <button onClick={() => SignOut()} className={`btn btn-secondary ${styles.outBtn}`} >SignOut</button> : <NavLink to="/signin" className={`btn btn-secondary ${styles.inBtn}`} >SignIn</NavLink>
+                        }
 
-                        <NavLink to="/signin" className={`btn btn-secondary ${styles.inBtn}`} >SignIn</NavLink>
                     </div>
 
                 </div>

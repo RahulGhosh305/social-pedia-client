@@ -6,12 +6,15 @@ import { BrowserRouter } from "react-router-dom";
 import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+import { Provider } from 'react-redux'
+import store from './redux/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
 )
