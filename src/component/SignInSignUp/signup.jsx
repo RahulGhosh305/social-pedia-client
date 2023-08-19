@@ -15,7 +15,7 @@ const SignUp = () => {
     const [photo, setPhoto] = useState('');
     const navigate = useNavigate()
     const [register, { isLoading, data }] = useRegistrationMutation();
-    console.log(data)
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!isLoading) {
